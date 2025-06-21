@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "ConvertBox",
+  "version": "1.0.0",
+  "description": "Convert almost anything entirely within your browser.",
+  "permissions": ["contextMenus"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

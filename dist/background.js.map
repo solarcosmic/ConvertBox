@@ -1,0 +1,1 @@
+{"version":3,"file":"background.js","mappings":"AAAA","sources":["webpack://convertbox/./src/background.js"],"sourcesContent":["chrome.runtime.onInstalled.addListener(() => {\n    chrome.contextMenus.create({\n        id: \"myImageOption\",\n        title: \"Perform Action on Image\",\n        contexts: [\"image\"]\n    })\n})"],"names":[],"sourceRoot":""}

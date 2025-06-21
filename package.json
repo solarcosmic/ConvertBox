@@ -1,0 +1,17 @@
+{
+  "name": "convertbox",
+  "version": "1.0.0",
+  "description": "Convert almost anything entirely within your browser.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "watch": "webpack --watch --mode development"
+  },
+  "author": "solarcosmic",
+  "license": "MIT",
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  }
+}
