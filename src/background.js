@@ -1,3 +1,24 @@
+function convertImageChecker(info, tab) {
+    if (info["mediaType"] == "image") {
+        const menuItemSplit = info["menuItemId"].toLowerCase().split("_");
+        chrome.tabs.sendMessage(tab.id, {
+            action: "convertImage",
+            srcUrl: info["srcUrl"],
+            format: menuItemSplit[1]
+        });
+    }
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "downloadImage") {
+        chrome.downloads.download({
+            url: request.url,
+            filename: request.filename,
+            saveAs: true,
+        });
+    }
+});
+
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "convertImage",
@@ -18,10 +39,11 @@ chrome.runtime.onInstalled.addListener(() => {
     }
     for (const format in image_list) {
         chrome.contextMenus.create({
-            id: "convertImage_" + format,
+            id: "convertImage_" + format.toLowerCase(),
             title: format + " (" + image_list[format] + ")",
             contexts: ["image"],
-            parentId: "convertImage"
+            parentId: "convertImage",
         });
     }
+    chrome.contextMenus.onClicked.addListener(convertImageChecker)
 });
