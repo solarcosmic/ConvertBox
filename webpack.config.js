@@ -5,7 +5,8 @@ export default {
   mode: "development",
   entry: {
     background: "./src/background.js",
-    content: "./src/content.js"
+    images: "./src/images.js",
+    markdown: "./src/markdown.js"
   },
   output: {
     path: path.resolve(process.cwd(), "dist"),

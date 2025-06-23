@@ -3,6 +3,7 @@
   !*** ./src/background.js ***!
   \***************************/
 function convertImageChecker(info, tab) {
+    console.log(info, tab);
     if (info["mediaType"] == "image") {
         const menuItemSplit = info["menuItemId"].toLowerCase().split("_");
         chrome.tabs.sendMessage(tab.id, {
@@ -10,11 +11,21 @@ function convertImageChecker(info, tab) {
             srcUrl: info["srcUrl"],
             format: menuItemSplit[1]
         });
+    } else if (info["menuItemId"] == "convertHTMLToMarkdown") {
+        chrome.tabs.sendMessage(tab.id, {
+            action: "convertHTMLToMarkdown"
+        });
     }
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "downloadImage") {
+        chrome.downloads.download({
+            url: request.url,
+            filename: request.filename,
+            saveAs: true,
+        });
+    } else if (request.action === "downloadFromUrl") {
         chrome.downloads.download({
             url: request.url,
             filename: request.filename,
@@ -45,6 +56,11 @@ chrome.runtime.onInstalled.addListener(() => {
             parentId: "convertImage",
         });
     }
+    chrome.contextMenus.create({
+        id: "convertHTMLToMarkdown",
+        title: "Convert Page (HTML) to Markdown",
+        contexts: ["page"]
+    });
     chrome.contextMenus.onClicked.addListener(convertImageChecker)
 });
 /******/ })()

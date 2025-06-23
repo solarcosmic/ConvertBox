@@ -2,9 +2,9 @@ import { PngIcoConverter } from "./libraries/png2icojs.min.js";
 import { CanvasToTIFF } from "./libraries/canvastotiff.min.js";
 import { CanvasToBMP } from "./libraries/canvastobmp.min.js";
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "convertImage") {
-        convertImage(request.srcUrl, request.format, "converted_image");
+chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+    if (req.action === "convertImage") {
+        convertImage(req["srcUrl"], req["format"], "converted_image");
     }
 });
 
@@ -45,7 +45,7 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
             case "ico":
             case "tiff":
             case "bmp":
-                mimeType = "image/png"; // set as png so we can convert them to its respective formats
+                mimeType = "image/png"; // set as png so we can convert them to its respective formats (or at least for now)
                 break;
 
             default:

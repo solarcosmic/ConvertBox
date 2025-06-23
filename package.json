@@ -13,5 +13,8 @@
     "copy-webpack-plugin": "^13.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "turndown": "^7.2.0"
   }
 }
