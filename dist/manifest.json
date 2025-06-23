@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["images.js", "markdown.js"],
+      "js": ["images.js", "markdown.js", "qrcode.js"],
       "type": "module"
     }
   ]

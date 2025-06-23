@@ -11,10 +11,12 @@
   "license": "MIT",
   "devDependencies": {
     "copy-webpack-plugin": "^13.0.0",
+    "qrcode": "^1.5.4",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "marked": "^15.0.12",
     "turndown": "^7.2.0"
   }
 }

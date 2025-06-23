@@ -6,7 +6,8 @@ export default {
   entry: {
     background: "./src/background.js",
     images: "./src/images.js",
-    markdown: "./src/markdown.js"
+    markdown: "./src/markdown.js",
+    qrcode: "./src/qrcode.js"
   },
   output: {
     path: path.resolve(process.cwd(), "dist"),

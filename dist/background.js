@@ -15,6 +15,11 @@ function convertImageChecker(info, tab) {
         chrome.tabs.sendMessage(tab.id, {
             action: "convertHTMLToMarkdown"
         });
+    } else if (info["menuItemId"] == "convertQRCode") {
+        chrome.tabs.sendMessage(tab.id, {
+            action: "convertQRCode",
+            selectionText: info["selectionText"]
+        });
     }
 }
 
@@ -60,6 +65,11 @@ chrome.runtime.onInstalled.addListener(() => {
         id: "convertHTMLToMarkdown",
         title: "Convert Page (HTML) to Markdown",
         contexts: ["page"]
+    });
+    chrome.contextMenus.create({
+        id: "convertQRCode",
+        title: "Convert Selected Text to QR Code",
+        contexts: ["selection"]
     });
     chrome.contextMenus.onClicked.addListener(convertImageChecker)
 });

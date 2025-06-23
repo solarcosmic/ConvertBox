@@ -1,0 +1,34 @@
+import QRCode from 'qrcode'
+
+chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
+    if (req.action === "convertQRCode") {
+        createQRCode(req["selectionText"], "qr_code");
+    }
+});
+
+/**
+ * Attempts to Convert HTML to Markdown via Turndown and downloads it.
+ */
+async function createQRCode(text, fileName) {
+    console.log(text);
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 1024;
+
+    QRCode.toCanvas(canvas, text, function(error) {
+        if (error) console.error(error);
+        canvas.toBlob((blob) => {
+            if (!blob) {
+                console.log("Failed to create the blob");
+                return;
+            }
+
+            const url = URL.createObjectURL(blob);
+            chrome.runtime.sendMessage({
+                action: "downloadImage",
+                url: url,
+                filename: `${fileName}.png`
+            });
+        }, "image/png", 1);
+    });
+}
