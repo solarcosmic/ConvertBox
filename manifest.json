@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ConvertBox",
   "version": "1.0.0",
-  "description": "Convert almost anything entirely within your browser.",
+  "description": "Convert images and more without leaving your browser. Entirely client-sided.",
   "permissions": ["contextMenus", "downloads"],
   "icons": {
     "16": "icons/icon_16.png",
