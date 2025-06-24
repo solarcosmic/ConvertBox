@@ -25,6 +25,21 @@ function convertImageChecker(info, tab, corsProxy = false) {
                 action: "convertHexToRGB",
                 selectionText: info["selectionText"]
             });
+        } else if (info["menuItemId"] == "convertToUpperCase") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertToUpperCase",
+                selectionText: info["selectionText"]
+            });
+        } else if (info["menuItemId"] == "convertToLowerCase") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertToLowerCase",
+                selectionText: info["selectionText"]
+            });
+        } else if (info["menuItemId"] == "convertToTitleCase") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertToTitleCase",
+                selectionText: info["selectionText"]
+            });
         }
     } catch (error) {
         console.error(error);
@@ -51,44 +66,90 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+function createContextMenus(enabledMenus = {}) {
+    chrome.contextMenus.removeAll(() => {
+        // Image Conversion
+        if (enabledMenus["convertImage"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertImage",
+                title: "Convert Image",
+                contexts: ["image"]
+            });
+            const image_list = {
+                "JPEG": "Joint Photographic Expert Group Image",
+                "PNG": "Portable Network Graphics",
+                "WebP": "Web Picture Format",
+                "ICO": "Microsoft Icon 256x256 only",
+                "TIFF": "Tagged Image File Format",
+                "BMP": "Bitmap Format",
+            }
+            for (const format in image_list) {
+                const subId = "convertImage_" + format.toLowerCase();
+                if (enabledMenus[subId] !== false) {
+                    chrome.contextMenus.create({
+                        id: subId,
+                        title: format + " (" + image_list[format] + ")",
+                        contexts: ["image"],
+                        parentId: "convertImage",
+                    });
+                }
+            }
+        }
+        // Other menus
+        if (enabledMenus["convertHTMLToMarkdown"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertHTMLToMarkdown",
+                title: "Convert Page (HTML) to Markdown",
+                contexts: ["page"]
+            });
+        }
+        if (enabledMenus["convertQRCode"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertQRCode",
+                title: "Convert Selected Text to QR Code",
+                contexts: ["selection"]
+            });
+        }
+        if (enabledMenus["convertHexToRGB"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertHexToRGB",
+                title: "Convert HEX to RGB (Selection, Clipboard)",
+                contexts: ["selection"]
+            });
+        }
+        if (enabledMenus["convertToUpperCase"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertToUpperCase",
+                title: "Convert Selection to UPPERCASE (Clipboard)",
+                contexts: ["selection"]
+            });
+        }
+        if (enabledMenus["convertToLowerCase"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertToLowerCase",
+                title: "Convert Selection to lowercase (Clipboard)",
+                contexts: ["selection"]
+            });
+        }
+        if (enabledMenus["convertToTitleCase"] !== false) {
+            chrome.contextMenus.create({
+                id: "convertToTitleCase",
+                title: "Convert Selection to Title Case (Clipboard)",
+                contexts: ["selection"]
+            });
+        }
+        chrome.contextMenus.onClicked.addListener(convertImageChecker);
+    });
+}
+
 chrome.runtime.onInstalled.addListener(() => {
-    // Image Conversion
-    chrome.contextMenus.create({
-        id: "convertImage",
-        title: "Convert Image",
-        contexts: ["image"]
+    chrome.storage.sync.get("enabledMenus", (dt) => {
+        createContextMenus(dt.enabledMenus || {});
     });
-    const image_list = {
-        "JPEG": "Joint Photographic Expert Group Image",
-        "PNG": "Portable Network Graphics",
-        "WebP": "Web Picture Format",
-        "ICO": "Microsoft Icon",
-        "TIFF": "Tagged Image File Format",
-        "BMP": "Bitmap Format",
+});
+
+chrome.storage.onChanged.addListener((ch, ar) => {
+    if (ar == "sync" && ch.enabledMenus) {
+        createContextMenus(ch.enabledMenus.newValue || {});
     }
-    for (const format in image_list) {
-        chrome.contextMenus.create({
-            id: "convertImage_" + format.toLowerCase(),
-            title: format + " (" + image_list[format] + ")",
-            contexts: ["image"],
-            parentId: "convertImage",
-        });
-    }
-    // Page to Markdown, QR Code, Hex to RGB
-    chrome.contextMenus.create({
-        id: "convertHTMLToMarkdown",
-        title: "Convert Page (HTML) to Markdown",
-        contexts: ["page"]
-    });
-    chrome.contextMenus.create({
-        id: "convertQRCode",
-        title: "Convert Selected Text to QR Code",
-        contexts: ["selection"]
-    });
-    chrome.contextMenus.create({
-        id: "convertHexToRGB",
-        title: "Convert HEX to RGB (Selection, Clipboard)",
-        contexts: ["selection"]
-    });
-    chrome.contextMenus.onClicked.addListener(convertImageChecker)
 });

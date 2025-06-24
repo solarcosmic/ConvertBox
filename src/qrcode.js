@@ -1,7 +1,7 @@
-import QRCode from 'qrcode'
+import QRCode from "qrcode";
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-    if (req.action === "convertQRCode") {
+    if (req.action == "convertQRCode") {
         createQRCode(req["selectionText"], "qr_code");
     }
 });
@@ -10,7 +10,6 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
  * Creates a QR code from the selected text and lets the user download it.
  */
 async function createQRCode(text, fileName) {
-    console.log(text);
     const canvas = document.createElement("canvas");
     canvas.width = 1024;
     canvas.height = 1024;

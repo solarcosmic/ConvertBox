@@ -3,7 +3,10 @@
   "name": "ConvertBox",
   "version": "1.0.0",
   "description": "Convert images and more without leaving your browser. Entirely client-sided.",
-  "permissions": ["contextMenus", "downloads"],
+  "permissions": ["contextMenus", "downloads", "storage"],
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
   "icons": {
     "16": "icons/icon_16.png",
     "48": "icons/icon_48.png",
@@ -15,13 +18,13 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["images.js", "markdown.js", "qrcode.js", "hex_rgb.js", "styles.js", "modal.js"],
+      "js": ["images.js", "markdown.js", "qrcode.js", "hex_rgb.js", "styles.js", "modal.js", "convertcase.js"],
       "type": "module"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["src/modal/ConvertBox.png", "src/assets/Inter.ttf"],
+      "resources": ["src/assets/ConvertBox.png", "src/assets/Inter.ttf", "src/assets/ConvertBox_logo.png", "src/popup/script.js"],
       "matches": ["<all_urls>"]
     }
   ]

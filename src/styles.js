@@ -4,7 +4,8 @@ const styles = `
         src: url("${chrome.runtime.getURL("./src/assets/Inter.ttf")}");
         }
 
-        #snackbar {
+        /* source: https://www.w3schools.com/howto/howto_js_snackbar.asp */
+        #convertbox-status-snackbar {
         font-family: "Inter", sans-serif !important;
         visibility: hidden;
         min-width: 250px;
@@ -21,7 +22,7 @@ const styles = `
         z-index: 999999999;
         }
 
-        #snackbar.show {
+        #convertbox-status-snackbar.show {
         visibility: visible;
         -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
         animation: fadein 0.5s, fadeout 0.5s 2.5s;

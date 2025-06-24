@@ -2,7 +2,7 @@ import hexRgb from 'hex-rgb';
 import { createSnackbar } from './snack.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-    if (req.action === "convertHexToRGB") {
+    if (req.action == "convertHexToRGB") {
         hexToRGB(req["selectionText"]);
     }
 });

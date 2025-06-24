@@ -2,7 +2,7 @@ import TurndownService from "turndown";
 import { createSnackbar } from './snack.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-    if (req.action === "convertHTMLToMarkdown") {
+    if (req.action == "convertHTMLToMarkdown") {
         convertHTMLToMarkdown(document.body.innerHTML, "converted_html");
     }
 });

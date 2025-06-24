@@ -5,7 +5,7 @@ import { createSnackbar } from './snack.js';
 import { createModal } from './modal.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-    if (req.action === "convertImage") {
+    if (req.action == "convertImage") {
         convertImage(req["srcUrl"], req["format"], "converted_image");
     }
 });
@@ -55,6 +55,7 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
                 break;
 
             default:
+                createModal("Unsupported file conversion format! " + format);
                 console.log("Unsupported file conversion format", format);
                 return;
         }
@@ -68,6 +69,7 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
         } else {
             canvas.toBlob((blob) => {
                 if (!blob) {
+                    createSnackbar("Failed to create canvas blob!");
                     console.log("Failed to create the blob");
                     return;
                 }
@@ -82,28 +84,36 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
             }, mimeType, quality);
         }
     } catch (error) {
-        console.log("==BEGIN IMAGE CONVERSION ERROR DIALOG, LOOK ABOVE FOR CORS ERRORS==");
-        createModal(
-            "Image Conversion Error",
-            `It seems that there was an error retrieving this image.
-            This can sometimes be caused by CORS-related issues.
-            Would you like to route this URL through a CORS proxy?
-            
-            Nothing happened? Please check the console for errors and report this!`,
-            "Cancel",
-            "Use CORS Proxy",
-            `You can check "Always Use CORS Proxy" in the Settings to automatically allow CORS proxy-ing.
-            Note that this method sends the URL to corsproxy.io, an external third-party source.`,
-            function(button) {
-                console.log(`==BUTTON PRESSED: "${button}"==`);
-                if (button == "Use CORS Proxy") {
-                    chrome.runtime.sendMessage({
-                        action: "reconvertImageUsingCORSProxy"
-                    });
-                }
-                console.log("==END IMAGE CONVERSION ERROR DIALOG==");
+        chrome.storage.sync.get("AlwaysUseCORS", function(data) {
+            if (data["AlwaysUseCORS"] != false) {
+                console.log("==BEGIN IMAGE CONVERSION ERROR DIALOG, LOOK ABOVE FOR CORS ERRORS==");
+                createModal(
+                    "Image Conversion Error",
+                    `It seems that there was an error retrieving this image.
+                    This can sometimes be caused by CORS-related issues.
+                    Would you like to route this URL through a CORS proxy?
+                    
+                    Nothing happened? Please check the console for errors and report this!`,
+                    "Cancel",
+                    "Use CORS Proxy",
+                    `You can check "Always Use CORS Proxy" in the Settings to automatically allow CORS proxy-ing.
+                    Note that this method sends the URL to corsproxy.io, an external third-party source.`,
+                    function(button) {
+                        console.log(`==BUTTON PRESSED: "${button}"==`);
+                        if (button == "Use CORS Proxy") {
+                            chrome.runtime.sendMessage({
+                                action: "reconvertImageUsingCORSProxy"
+                            });
+                        }
+                        console.log("==END IMAGE CONVERSION ERROR DIALOG==");
+                    }
+                );
+            } else {
+                chrome.runtime.sendMessage({
+                    action: "reconvertImageUsingCORSProxy"
+                });
             }
-        );
+        });
     }
 }
 
@@ -117,6 +127,7 @@ function pngToICO(img, fileName, format) {
 
     icoCanvas.toBlob(async (blob) => {
         if (!blob) {
+            createSnackbar("Failed to create canvas blob!");
             console.log("Failed to create the blob");
             return;
         }
@@ -133,6 +144,7 @@ function pngToICO(img, fileName, format) {
                 filename: `${fileName}.${format}`
             });
         } catch (error) {
+            createSnackbar("ICO conversion failed: " + error);
             console.log("ICO conversion failed", error);
         }
     }, "image/png");
@@ -150,6 +162,7 @@ function pngToTIFF(canvas, fileName, format) {
             });
         });
     } catch (error) {
+        createSnackbar("TIFF conversion failed: " + error);
         console.log("TIFF conversion failed", error);
     }
 }
@@ -166,6 +179,7 @@ function pngToBMP(canvas, fileName, format) {
             });
         });
     } catch (error) {
+        createSnackbar("BMP conversion failed: " + error);
         console.log("BMP conversion failed", error);
     }
 }

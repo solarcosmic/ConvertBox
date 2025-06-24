@@ -7,7 +7,7 @@ var modal_description;
 var modal_subtext;
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
-    if (req.action === "createModal") {
+    if (req.action == "createModal") {
         createModal(req["title"], req["description"], req["button1"], req["button2"], req["callback"]);
     }
 });
@@ -24,7 +24,7 @@ export function initModal() {
     // assign stuff
     modal_space.setAttribute("id", "convertbox-modal-space");
     modal_layout.classList.add("convertbox-modal-layout");
-    modal_logo.src = chrome.runtime.getURL("./src/modal/ConvertBox.png");
+    modal_logo.src = chrome.runtime.getURL("./src/assets/ConvertBox.png");
     modal_logo.classList.add("convertbox-modal-logo");
     modal_title.setAttribute("id", "convertbox-modal-title");
     modal_description.setAttribute("id", "convertbox-modal-description");

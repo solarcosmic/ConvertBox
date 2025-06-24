@@ -11,7 +11,8 @@ export default {
     hex_rgb: "./src/hex_rgb.js",
     styles: "./src/styles.js",
     snack: "./src/snack.js",
-    modal: "./src/modal.js"
+    modal: "./src/modal.js",
+    convertcase: "./src/convertcase.js"
   },
   output: {
     path: path.resolve(process.cwd(), "dist"),
@@ -23,7 +24,10 @@ export default {
         { from: "manifest.json", to: "." },
         { from: "icons", to: "icons"},
         { from: "src/assets/Inter.ttf", to: "src/assets/Inter.ttf"},
-        { from: "src/modal/ConvertBox.png", to: "src/modal/ConvertBox.png"},
+        { from: "src/assets/ConvertBox.png", to: "src/assets/ConvertBox.png"},
+        { from: "src/assets/ConvertBox_logo.png", to: "src/assets/ConvertBox_logo.png"},
+        { from: "src/popup/index.html", to: "src/popup/index.html"},
+        { from: "src/popup/script.js", to: "src/popup/script.js"}
       ]
     })
   ],
