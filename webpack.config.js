@@ -7,7 +7,10 @@ export default {
     background: "./src/background.js",
     images: "./src/images.js",
     markdown: "./src/markdown.js",
-    qrcode: "./src/qrcode.js"
+    qrcode: "./src/qrcode.js",
+    hex_rgb: "./src/hex_rgb.js",
+    styles: "./src/styles.js",
+    snack: "./src/snack.js"
   },
   output: {
     path: path.resolve(process.cwd(), "dist"),

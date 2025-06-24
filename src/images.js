@@ -1,6 +1,7 @@
 import { PngIcoConverter } from "./libraries/png2icojs.min.js";
 import { CanvasToTIFF } from "./libraries/canvastotiff.min.js";
 import { CanvasToBMP } from "./libraries/canvastobmp.min.js";
+import { createSnackbar } from './snack.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.action === "convertImage") {
@@ -67,6 +68,7 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
                 }
 
                 const url = URL.createObjectURL(blob);
+                createSnackbar("Converted! You should be prompted to download shortly.");
                 chrome.runtime.sendMessage({
                     action: "downloadImage",
                     url: url,
@@ -98,6 +100,7 @@ function pngToICO(img, fileName, format) {
         try {
             const icoBlob = await converter.convertToBlobAsync(inputs);
             const url = URL.createObjectURL(icoBlob);
+            createSnackbar("Converted to ICO! You should be prompted to download shortly.");
             chrome.runtime.sendMessage({
                 action: "downloadImage",
                 url: url,
@@ -113,6 +116,7 @@ function pngToTIFF(canvas, fileName, format) {
     try {
         CanvasToTIFF.toBlob(canvas, function(blob) {
             const url = URL.createObjectURL(blob);
+            createSnackbar("Converted to TIFF! You should be prompted to download shortly.");
             chrome.runtime.sendMessage({
                 action: "downloadImage",
                 url: url,
@@ -128,6 +132,7 @@ function pngToBMP(canvas, fileName, format) {
     try {
         CanvasToBMP.toBlob(canvas, function(blob) {
             const url = URL.createObjectURL(blob);
+            createSnackbar("Converted to BMP! You should be prompted to download shortly.");
             chrome.runtime.sendMessage({
                 action: "downloadImage",
                 url: url,

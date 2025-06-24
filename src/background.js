@@ -4,7 +4,7 @@ function convertImageChecker(info, tab) {
         const menuItemSplit = info["menuItemId"].toLowerCase().split("_");
         chrome.tabs.sendMessage(tab.id, {
             action: "convertImage",
-            srcUrl: info["srcUrl"],
+            srcUrl: "https://corsproxy.io/?url=" + info["srcUrl"],
             format: menuItemSplit[1]
         });
     } else if (info["menuItemId"] == "convertHTMLToMarkdown") {
@@ -14,6 +14,11 @@ function convertImageChecker(info, tab) {
     } else if (info["menuItemId"] == "convertQRCode") {
         chrome.tabs.sendMessage(tab.id, {
             action: "convertQRCode",
+            selectionText: info["selectionText"]
+        });
+    } else if (info["menuItemId"] == "convertHexToRGB") {
+        chrome.tabs.sendMessage(tab.id, {
+            action: "convertHexToRGB",
             selectionText: info["selectionText"]
         });
     }
@@ -36,6 +41,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
+    // Image Conversion
     chrome.contextMenus.create({
         id: "convertImage",
         title: "Convert Image",
@@ -57,6 +63,7 @@ chrome.runtime.onInstalled.addListener(() => {
             parentId: "convertImage",
         });
     }
+    // Page to Markdown, QR Code, Hex to RGB
     chrome.contextMenus.create({
         id: "convertHTMLToMarkdown",
         title: "Convert Page (HTML) to Markdown",
@@ -65,6 +72,11 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "convertQRCode",
         title: "Convert Selected Text to QR Code",
+        contexts: ["selection"]
+    });
+    chrome.contextMenus.create({
+        id: "convertHexToRGB",
+        title: "Convert HEX to RGB (Selection, Clipboard)",
         contexts: ["selection"]
     });
     chrome.contextMenus.onClicked.addListener(convertImageChecker)

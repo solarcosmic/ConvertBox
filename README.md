@@ -1,6 +1,12 @@
 # ConvertBox
 Convert images and more without leaving your browser. Entirely client-sided.
 
+## What can ConvertBox convert?
+- A variety of image formats (e.g. PNG, JPG) to WebP, ICO, BMP, and more.
+- HTML page to Markdown format.
+- Selected text to QR code.
+- Hex colour codes to RGB.
+
 ## How does ConvertBox work?
 ConvertBox uses a variety of tools and modules to convert what is needed client-sided without sending anything to a third party. Everything runs directly in your browser.
 

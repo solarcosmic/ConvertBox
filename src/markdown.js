@@ -1,4 +1,5 @@
 import TurndownService from "turndown";
+import { createSnackbar } from './snack.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.action === "convertHTMLToMarkdown") {
@@ -14,6 +15,7 @@ async function convertHTMLToMarkdown(html, fileName) {
     const blob = new Blob([service.turndown(html)], {type: "text/markdown"});
     const url = URL.createObjectURL(blob);
 
+    createSnackbar("Converted and downloading!");
     chrome.runtime.sendMessage({
         action: "downloadFromUrl",
         url: url,

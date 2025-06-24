@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
 });
 
 /**
- * Attempts to Convert HTML to Markdown via Turndown and downloads it.
+ * Creates a QR code from the selected text and lets the user download it.
  */
 async function createQRCode(text, fileName) {
     console.log(text);
@@ -19,7 +19,7 @@ async function createQRCode(text, fileName) {
         if (error) console.error(error);
         canvas.toBlob((blob) => {
             if (!blob) {
-                console.log("Failed to create the blob");
+                console.error("Failed to create the blob");
                 return;
             }
 
