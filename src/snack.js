@@ -1,7 +1,6 @@
 /* used to create the snackbar things, thanks w3schools */
 var hasInit = false;
 export function createSnackbar(text) {
-    console.log("snackbar init")
     if (!hasInit) initSnackbar();
     hasInit.textContent = text || "Operation successful!";
     hasInit.className = "show";
@@ -12,7 +11,6 @@ export function createSnackbar(text) {
 
 function initSnackbar() {
     if (hasInit) return;
-    console.log("init snackbar rn");
     const snackbar = document.createElement("div");
     snackbar.setAttribute("id", "snackbar");
     document.body.appendChild(snackbar);

@@ -13,7 +13,8 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
 async function hexToRGB(text) {
     try {
         const rgb = hexRgb(text);
-        const formedString = `${rgb.red}, ${rgb.green}, ${rgb.blue}`;
+        var hasAlpha = (rgb.alpha < 1) ? ", " + rgb.alpha : "";
+        const formedString = `${rgb.red}, ${rgb.green}, ${rgb.blue}${hasAlpha}`;
         await navigator.clipboard.writeText(formedString);
         createSnackbar("Copied to clipboard!");
     } catch (error) {

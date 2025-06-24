@@ -2,6 +2,7 @@ import { PngIcoConverter } from "./libraries/png2icojs.min.js";
 import { CanvasToTIFF } from "./libraries/canvastotiff.min.js";
 import { CanvasToBMP } from "./libraries/canvastobmp.min.js";
 import { createSnackbar } from './snack.js';
+import { createModal } from './modal.js';
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.action === "convertImage") {
@@ -13,6 +14,10 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
  * Converts an image from a URL to a standard format (PNG, JPEG, WebP) and downloads it.
  * Note that if there is an unsupported format the function will just print out that it
  * can't convert it.
+ * 
+ * Also, this function detects any CORS issues and reports the issue to the user, where
+ * the user can decide whether to send the URL to a CORS proxy or to cancel.
+ * NOTE file:// error catching should not be needed since it's unlikely CORS will be there
  */
 async function convertImage(imageUrl, format, fileName, quality = 0.92) {
     try {
@@ -77,7 +82,28 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
             }, mimeType, quality);
         }
     } catch (error) {
-        console.log("Error when converting", error);
+        console.log("==BEGIN IMAGE CONVERSION ERROR DIALOG, LOOK ABOVE FOR CORS ERRORS==");
+        createModal(
+            "Image Conversion Error",
+            `It seems that there was an error retrieving this image.
+            This can sometimes be caused by CORS-related issues.
+            Would you like to route this URL through a CORS proxy?
+            
+            Nothing happened? Please check the console for errors and report this!`,
+            "Cancel",
+            "Use CORS Proxy",
+            `You can check "Always Use CORS Proxy" in the Settings to automatically allow CORS proxy-ing.
+            Note that this method sends the URL to corsproxy.io, an external third-party source.`,
+            function(button) {
+                console.log(`==BUTTON PRESSED: "${button}"==`);
+                if (button == "Use CORS Proxy") {
+                    chrome.runtime.sendMessage({
+                        action: "reconvertImageUsingCORSProxy"
+                    });
+                }
+                console.log("==END IMAGE CONVERSION ERROR DIALOG==");
+            }
+        );
     }
 }
 

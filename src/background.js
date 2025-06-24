@@ -1,42 +1,53 @@
-function convertImageChecker(info, tab) {
-    console.log(info, tab);
-    if (info["mediaType"] == "image") {
-        const menuItemSplit = info["menuItemId"].toLowerCase().split("_");
-        chrome.tabs.sendMessage(tab.id, {
-            action: "convertImage",
-            srcUrl: "https://corsproxy.io/?url=" + info["srcUrl"],
-            format: menuItemSplit[1]
-        });
-    } else if (info["menuItemId"] == "convertHTMLToMarkdown") {
-        chrome.tabs.sendMessage(tab.id, {
-            action: "convertHTMLToMarkdown"
-        });
-    } else if (info["menuItemId"] == "convertQRCode") {
-        chrome.tabs.sendMessage(tab.id, {
-            action: "convertQRCode",
-            selectionText: info["selectionText"]
-        });
-    } else if (info["menuItemId"] == "convertHexToRGB") {
-        chrome.tabs.sendMessage(tab.id, {
-            action: "convertHexToRGB",
-            selectionText: info["selectionText"]
-        });
+var last_info = null;
+var last_tab = null;
+function convertImageChecker(info, tab, corsProxy = false) {
+    last_info = info;
+    last_tab = tab;
+    try {
+        if (info["mediaType"] == "image") {
+            const menuItemSplit = info["menuItemId"].toLowerCase().split("_");
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertImage",
+                srcUrl: corsProxy ? "https://corsproxy.io/?url=" + info["srcUrl"] : info["srcUrl"],
+                format: menuItemSplit[1]
+            });
+        } else if (info["menuItemId"] == "convertHTMLToMarkdown") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertHTMLToMarkdown"
+            });
+        } else if (info["menuItemId"] == "convertQRCode") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertQRCode",
+                selectionText: info["selectionText"]
+            });
+        } else if (info["menuItemId"] == "convertHexToRGB") {
+            chrome.tabs.sendMessage(tab.id, {
+                action: "convertHexToRGB",
+                selectionText: info["selectionText"]
+            });
+        }
+    } catch (error) {
+        console.error(error);
     }
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "downloadImage") {
+    if (request.action == "downloadImage") {
         chrome.downloads.download({
             url: request.url,
             filename: request.filename,
             saveAs: true,
         });
-    } else if (request.action === "downloadFromUrl") {
+    } else if (request.action == "downloadFromUrl") {
         chrome.downloads.download({
             url: request.url,
             filename: request.filename,
             saveAs: true,
         });
+    } else if (request.action == "reconvertImageUsingCORSProxy") {
+        if (last_info && last_tab) {
+            convertImageChecker(last_info, last_tab, true);
+        }
     }
 });
 
