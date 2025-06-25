@@ -25,11 +25,5 @@
       "resources": ["src/assets/ConvertBox.png", "src/assets/Inter.ttf", "src/assets/ConvertBox_logo.png", "src/popup/script.js"],
       "matches": ["<all_urls>"]
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "abe@solarcosmic.net",
-      "strict_min_version": "58.0"
-    }
-  }
+  ]
 }
