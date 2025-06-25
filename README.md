@@ -3,6 +3,9 @@
 # ConvertBox
 Convert images and more without leaving your browser. Converts client-sided.
 
+## How can I install ConvertBox?
+[Click here to view the install guide for Chrome, see you there! :D](https://solarcosmic.github.io/convertbox-docs/guides/get_extension#developer-mode-chrome)
+
 ## What can ConvertBox convert?
 - A variety of image formats (e.g. PNG, JPG) to WebP, ICO, BMP, and more.
 - HTML page to Markdown format.
@@ -11,6 +14,15 @@ Convert images and more without leaving your browser. Converts client-sided.
 
 ## Why would ConvertBox be needed?
 Imagine this: you stumble across an image you want to use in your project, for example, but the format is something like .avif! ConvertBox can fix that in only two clicks, converting the image without leaving your computer.
+
+## How can I use ConvertBox?
+- To convert images, right click on any image, go to the "ConvertBox" dropdown, and select the format you would like to convert the image to.
+- To convert pages (HTML) to Markdown (experimental), you can right click on any part of the page that isn't a Node (object), and click on "Convert Page (HTML) to Markdown".
+- To convert HEX to RGB, simply select the HEX colour code you want, including the #, go to the "ConvertBox" dropdown, right click and click on "Convert HEX to RGB" and it will copy the result to your clipboard.
+- To convert text to any case (UPPERCASE, lowercase, Title Case), simply right click on the text you want to convert and click "Convert Selection to ..." and it will copy it to your clipboard.
+- To convert text to a QR code, you can right click on any selected text on a page, go to the "ConvertBox" dropdown, then click on "Convert Selected Text to QR Code" and it should start downloading.
+
+You can also utilize the popup box, which can be done by clicking the ConvertBox icon in the extension tray. This will let you choose what items you want to show on the context menus.
 
 ## What browsers is ConvertBox available on?
 ConvertBox is only currently available for Chrome-based browsers (e.g. Chrome, Brave, Microsoft Edge)
