@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+    "build:chrome": "cp manifest.json dist/manifest.json && cp -r src dist/",
+    "build:firefox": "cp manifest.firefox.json dist/manifest.json && cp -r src dist/"
   },
   "author": "solarcosmic",
   "license": "MIT",

@@ -84,8 +84,9 @@ async function convertImage(imageUrl, format, fileName, quality = 0.92) {
             }, mimeType, quality);
         }
     } catch (error) {
-        chrome.storage.sync.get("AlwaysUseCORS", function(data) {
-            if (data["AlwaysUseCORS"] != false) {
+        chrome.storage.sync.get("enabledMenus", (data) => {
+            const enabledMenus = data.enabledMenus || {};
+            if (enabledMenus["RequireCORSDialog"] == null || enabledMenus["RequireCORSDialog"] == true) {
                 console.log("==BEGIN IMAGE CONVERSION ERROR DIALOG, LOOK ABOVE FOR CORS ERRORS==");
                 createModal(
                     "Image Conversion Error",

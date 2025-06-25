@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById("convertbox-container");
 
     const contextMenus = [
-        { id: "AlwaysUseCORS", label: "Show CORS Proxy Dialog Instead" },
+        { id: "RequireCORSDialog", label: "Require CORS Proxy Dialog" },
         { id: "convertImage", label: "Convert Image Formats" },
         { id: "convertHTMLToMarkdown", label: "HTML to Markdown" },
         { id: "convertQRCode", label: "Selected Text to QR Code" },
