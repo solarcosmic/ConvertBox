@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/styles.js - Styles that get injected into the main page.
 const styles = `
         @font-face {
         font-family: "Inter";

@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/hex_rgb.js - Converts HEX colour codes to RGB
 import hexRgb from 'hex-rgb';
 import { createSnackbar } from './snack.js';
 

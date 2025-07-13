@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/convertcase.js - Converts text to upper, lower, or title case
 import { createSnackbar } from './snack.js';
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.action == "convertToUpperCase") {

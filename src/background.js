@@ -3,8 +3,13 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/background.js - Background script (service worker) for ConvertBox
 var last_info = null;
 var last_tab = null;
+/*
+ * Checks what type to convert to.
+ * NOTE This is named convertImageChecker, but hasn't been changed since the introduction of other conversions.
+*/
 function convertImageChecker(info, tab, corsProxy = false) {
     last_info = info;
     last_tab = tab;
@@ -51,6 +56,9 @@ function convertImageChecker(info, tab, corsProxy = false) {
     }
 }
 
+/*
+ * If any of the content scripts need to contact the worker scripts, the messages are collected here.
+*/
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action == "downloadImage") {
         chrome.downloads.download({
@@ -72,6 +80,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.contextMenus.onClicked.addListener(convertImageChecker);
+/*
+ * A function to create the context menus.
+ * Note that all context menus get removed before reapplied.
+*/
 function createContextMenus(enabledMenus = {}) {
     chrome.contextMenus.removeAll(() => {
         // Image Conversion
@@ -147,6 +159,7 @@ function createContextMenus(enabledMenus = {}) {
     });
 }
 
+// Other sync features
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.get("enabledMenus", (dt) => {
         createContextMenus(dt.enabledMenus || {});

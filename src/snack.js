@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/snack.js - Snackbar at the bottom of the viewport when needed.
 /* 
 used to create the snackbar things, thanks w3schools
 https://www.w3schools.com/howto/howto_js_snackbar.asp

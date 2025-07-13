@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/modal.js - Creates a modal on the current webpage.
 var modal = false;
 var modal_space;
 var modal_layout;

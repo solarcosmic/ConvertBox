@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/markdown.js - Converts HTML pages to Markdown. Best on raw HTML pages.
 import TurndownService from "turndown";
 import { createSnackbar } from './snack.js';
 

@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/popup/script.js - Main popup script that controls what values should be toggled at what time
 document.addEventListener("DOMContentLoaded", function() {
     const versionItem = document.getElementById("convertbox-version");
     versionItem.textContent = `Version v${chrome.runtime.getManifest().version}`

@@ -3,6 +3,7 @@
  * This project is licensed under the MIT license.
  * To view the license, see <https://opensource.org/licenses/MIT>.
 */
+// src/qrcode.js - Converts text to QR code using the qrcode library.
 import QRCode from "qrcode";
 
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {

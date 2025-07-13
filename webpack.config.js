@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2025 solarcosmic.
+ * This project is licensed under the MIT license.
+ * To view the license, see <https://opensource.org/licenses/MIT>.
+*/
+// src/styles.js - Styles that get injected into the main page.
 import path from "path";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 
