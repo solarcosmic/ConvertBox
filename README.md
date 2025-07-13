@@ -1,7 +1,7 @@
-<img width="1920" height="534" alt="explainthat_logo_banner" src="https://github.com/user-attachments/assets/7b29f0de-19af-45b3-aa0c-58f6300b3ff6" />
+<img width="1920" height="534" alt="convertbox_logo_banner" src="https://github.com/user-attachments/assets/7b29f0de-19af-45b3-aa0c-58f6300b3ff6" />
 
 # ConvertBox
-Convert images and more without leaving your browser. Converts client-sided.
+Convert images and more without leaving your browser. Client-sided.
 
 ## How can I install ConvertBox?
 [Click here to view the install guide for Chrome, see you there! :D](https://solarcosmic.github.io/convertbox-docs/guides/get_extension#developer-mode-chrome)
