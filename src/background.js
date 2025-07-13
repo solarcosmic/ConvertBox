@@ -71,6 +71,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+chrome.contextMenus.onClicked.addListener(convertImageChecker);
 function createContextMenus(enabledMenus = {}) {
     chrome.contextMenus.removeAll(() => {
         // Image Conversion
@@ -143,11 +144,10 @@ function createContextMenus(enabledMenus = {}) {
                 contexts: ["selection"]
             });
         }
-        chrome.contextMenus.onClicked.addListener(convertImageChecker);
     });
 }
 
-/* chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.get("enabledMenus", (dt) => {
         createContextMenus(dt.enabledMenus || {});
     });
@@ -157,14 +157,4 @@ chrome.storage.onChanged.addListener((ch, ar) => {
     if (ar == "sync" && ch.enabledMenus) {
         createContextMenus(ch.enabledMenus.newValue || {});
     }
-}); */
-
-function contextMenuInit() {
-    chrome.storage.sync.get("enabledMenus", (dt) => {
-        createContextMenus(dt.enabledMenus || {});
-    });
-}
-
-chrome.runtime.onStartup.addListener(contextMenuInit);
-chrome.runtime.onInstalled.addListener(contextMenuInit);
-chrome.storage.onChanged.addListener(contextMenuInit);
+});
