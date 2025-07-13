@@ -1,4 +1,4 @@
-![ConvertBox_Banner_3](https://github.com/user-attachments/assets/dacee3e1-04c3-4953-b7dc-b03789fb1d16)
+<img width="1920" height="534" alt="explainthat_logo_banner" src="https://github.com/user-attachments/assets/7b29f0de-19af-45b3-aa0c-58f6300b3ff6" />
 
 # ConvertBox
 Convert images and more without leaving your browser. Converts client-sided.
