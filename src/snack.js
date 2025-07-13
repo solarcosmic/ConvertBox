@@ -8,6 +8,9 @@ used to create the snackbar things, thanks w3schools
 https://www.w3schools.com/howto/howto_js_snackbar.asp
 */
 var hasInit = false;
+/*
+ * Creates the snackbar that shows at the bottom of the viewport.
+*/
 export function createSnackbar(text) {
     if (!hasInit) initSnackbar();
     hasInit.textContent = text || "Operation successful!";
@@ -17,11 +20,18 @@ export function createSnackbar(text) {
     }, 3000);
 }
 
+/*
+ * Checks for the snackbar on the current page and removes it.
+ * This makes me realise that this should probably be in a shadow DOM, but oh well.
+*/
 function checkForSnack() {
     const snack = document.getElementById("convertbox-status-snackbar");
     if (snack) snack.remove();
 }
 
+/*
+ * Initialises the snackbar.
+*/
 function initSnackbar(hideLogo = false) {
     checkForSnack();
     const snackbar = document.createElement("div");

@@ -17,6 +17,9 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     }
 });
 
+/*
+ * Initialises the modal.
+*/
 export function initModal() {
     if (modal) return;
     modal_space = document.createElement("div");
@@ -45,6 +48,11 @@ export function initModal() {
     modal = true;
 }
 
+/*
+ * Creates a modal.
+ * As of right now, this modal is used to display the CORS proxy error thing.
+ * However, this modal should be adaptable for other uses in the future.
+*/
 export function createModal(title, description, button1, button2, subtext, callback) {
     if (!modal) initModal();
     try {
