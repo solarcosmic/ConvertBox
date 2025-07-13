@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 solarcosmic.
+ * This project is licensed under the MIT license.
+ * To view the license, see <https://opensource.org/licenses/MIT>.
+*/
 var last_info = null;
 var last_tab = null;
 function convertImageChecker(info, tab, corsProxy = false) {

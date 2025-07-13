@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 solarcosmic.
+ * This project is licensed under the MIT license.
+ * To view the license, see <https://opensource.org/licenses/MIT>.
+*/
 import { PngIcoConverter } from "./libraries/png2icojs.min.js";
 import { CanvasToTIFF } from "./libraries/canvastotiff.min.js";
 import { CanvasToBMP } from "./libraries/canvastobmp.min.js";

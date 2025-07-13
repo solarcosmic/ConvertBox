@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 solarcosmic.
+ * This project is licensed under the MIT license.
+ * To view the license, see <https://opensource.org/licenses/MIT>.
+*/
 import TurndownService from "turndown";
 import { createSnackbar } from './snack.js';
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2025 solarcosmic.
+ * This project is licensed under the MIT license.
+ * To view the license, see <https://opensource.org/licenses/MIT>.
+*/
 document.addEventListener("DOMContentLoaded", function() {
     const versionItem = document.getElementById("convertbox-version");
     versionItem.textContent = `Version v${chrome.runtime.getManifest().version}`
